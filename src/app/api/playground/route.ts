@@ -52,9 +52,9 @@ export async function POST(req: NextRequest) {
 */
   const groqModel = new ChatGroq({
     apiKey: process.env.GROQ_API_KEY,
-    temperature: Number(temperature),
-    model,
-    maxTokens: Number(maxTokens),
+    temperature: temperature === "" ? undefined : Number(temperature),
+    model: model === "" ? undefined : model,
+    maxTokens: maxTokens === "" ? undefined : Number(maxTokens),
   });
   const prompt = ChatPromptTemplate.fromMessages([
     [contextName ?? "system", context ?? "You are a helpful assistant"],

@@ -184,7 +184,7 @@ export default function Dashboard() {
         <Badge variant="outline" className="absolute right-3 top-3">
           Output
         </Badge>
-        <div className="flex-1 pt-8">
+        <div className="flex-1 py-8">
           <div className="grid grid-cols-1 gap-5">
             {send && (
               <div className="flex justify-end">
