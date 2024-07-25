@@ -203,10 +203,10 @@ export default function Dashboard() {
                 <Skeleton className="h-8 w-8" />
                 <Card className="p-3">
                   <CardContent className="p-0 space-y-2">
-                    <Skeleton className="h-4 w-96" />
-                    <Skeleton className="h-4 w-80" />
-                    <Skeleton className="h-4 w-96" />
-                    <Skeleton className="h-4 w-52" />
+                    <Skeleton className="h-4 w-[95%]" />
+                    <Skeleton className="h-4 w-[100%]" />
+                    <Skeleton className="h-4 w-[88%]" />
+                    <Skeleton className="h-4 w-[94%]" />
                   </CardContent>
                 </Card>
               </div>
