@@ -182,11 +182,11 @@ export default function PlaygroundLayout({
                 <Textarea
                   id="content"
                   placeholder="You are a..."
-                  value={gptCredentials.input}
+                  value={gptCredentials.context}
                   onChange={(e) =>
                     setGPTCredentials({
                       ...gptCredentials,
-                      input: e.target.value,
+                      context: e.target.value,
                     })
                   }
                 />
