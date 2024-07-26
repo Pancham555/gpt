@@ -28,19 +28,23 @@ import { Slider } from "@/components/ui/slider";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { GPTContext, GPTCredentialsProps } from "@/context/gpt-context";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+
 export default function Dashboard() {
   const {
     gptCredentials,
     setGPTCredentials,
   }: { gptCredentials: GPTCredentialsProps; setGPTCredentials: Function } =
     useContext(GPTContext);
+
   const [models, setModels] = useState<string[]>();
   const [contextNames, setContextNames] = useState<string[]>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [send, setSend] = useState<boolean>(false);
-  const [output, setOutput] = useState<string>("");
+  const [messagesArr, setMessagesArr] = useState([
+    { type: "ai", data: "Hello, how can I help you today?" },
+  ]);
+
   const getGPTParameters = async () => {
     try {
       const data = await axios.get("/api/playground");
@@ -53,11 +57,21 @@ export default function Dashboard() {
   };
 
   const sendGPTData = async () => {
-    setSend(true);
+    setMessagesArr([
+      ...messagesArr,
+      { type: "human", data: gptCredentials.input },
+    ]);
     setLoading(true);
     try {
-      const data = await axios.post("/api/playground", { ...gptCredentials });
-      setOutput(data.data.response.kwargs.content);
+      const data = await axios.post("/api/playground", {
+        ...gptCredentials,
+        memory: JSON.stringify(messagesArr),
+      });
+      setMessagesArr([
+        ...messagesArr,
+        { type: "human", data: gptCredentials.input },
+        { type: "ai", data: data.data.response },
+      ]);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +79,7 @@ export default function Dashboard() {
   };
   useEffect(() => {
     getGPTParameters();
-  }, [output]);
+  }, []);
 
   return (
     <main className="flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3 grid">
@@ -186,40 +200,32 @@ export default function Dashboard() {
         </Badge>
         <div className="flex-1 py-8">
           <div className="grid grid-cols-1 gap-5">
-            {send && (
-              <div className="flex justify-end">
-                <div className="grid grid-cols-[20fr_1fr] gap-2 w-full max-w-lg">
-                  <Card className="p-3">
-                    <CardContent className="p-0">
-                      {gptCredentials.input}
-                    </CardContent>
-                  </Card>
-                  <SquareUser />
-                </div>
-              </div>
-            )}
-            {loading ? (
-              <div className="grid grid-cols-[1fr_20fr] gap-2 w-full max-w-lg">
-                <Skeleton className="h-8 w-8" />
-                <Card className="p-3">
-                  <CardContent className="p-0 space-y-2">
-                    <Skeleton className="h-4 w-[95%]" />
-                    <Skeleton className="h-4 w-[100%]" />
-                    <Skeleton className="h-4 w-[88%]" />
-                    <Skeleton className="h-4 w-[94%]" />
-                  </CardContent>
-                </Card>
-              </div>
-            ) : (
-              send && (
-                <div className="grid grid-cols-[1fr_20fr] gap-2 w-full max-w-lg">
-                  <BotMessageSquare />
-                  <Card className="p-3">
-                    <CardContent className="p-0">{output}</CardContent>
-                  </Card>
-                </div>
-              )
-            )}
+            {messagesArr?.map((data, i) => {
+              if (data.type === "ai") {
+                return (
+                  <div
+                    key={i}
+                    className="grid grid-cols-[1fr_20fr] gap-2 w-full max-w-lg"
+                  >
+                    <BotMessageSquare />
+                    <Card className="p-3">
+                      <CardContent className="p-0">{data.data}</CardContent>
+                    </Card>
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={i} className="flex justify-end">
+                    <div className="grid grid-cols-[20fr_1fr] gap-2 w-full max-w-lg">
+                      <Card className="p-3">
+                        <CardContent className="p-0">{data.data}</CardContent>
+                      </Card>
+                      <SquareUser />
+                    </div>
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
         <form
@@ -265,7 +271,9 @@ export default function Dashboard() {
               size="sm"
               className="ml-auto gap-1.5"
               type="button"
-              onClick={() => sendGPTData()}
+              onClick={() => {
+                sendGPTData();
+              }}
             >
               Send Message
               <CornerDownLeft className="size-3.5" />
@@ -276,3 +284,22 @@ export default function Dashboard() {
     </main>
   );
 }
+/*
+
+loading ? (
+                  <div
+                    key={i}
+                    className="grid grid-cols-[1fr_20fr] gap-2 w-full max-w-lg"
+                  >
+                    <Skeleton className="h-8 w-8" />
+                    <Card className="p-3">
+                      <CardContent className="p-0 space-y-2">
+                        <Skeleton className="h-4 w-[95%]" />
+                        <Skeleton className="h-4 w-[100%]" />
+                        <Skeleton className="h-4 w-[88%]" />
+                        <Skeleton className="h-4 w-[94%]" />
+                      </CardContent>
+                    </Card>
+                  </div>
+                ) : (
+*/

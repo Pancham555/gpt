@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ChatGroq } from "@langchain/groq";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
+import {
+  ChatPromptTemplate,
+  MessagesPlaceholder,
+} from "@langchain/core/prompts";
+import { AIMessage, HumanMessage } from "@langchain/core/messages";
 
 export async function GET() {
   return NextResponse.json({
@@ -23,8 +27,13 @@ export async function GET() {
   });
 }
 
+interface ArrayProps {
+  type: string;
+  data: string;
+}
+
 export async function POST(req: NextRequest) {
-  const { model, maxTokens, contextName, context, input, temperature } =
+  const { model, maxTokens, contextName, context, input, temperature, memory } =
     await req.json();
   //   Models
   /*
@@ -56,15 +65,28 @@ export async function POST(req: NextRequest) {
     model: model === "" ? undefined : model,
     maxTokens: maxTokens === "" ? undefined : Number(maxTokens),
   });
+
+  const memoryArray = JSON.parse(memory);
+  memoryArray.push({ type: "human", data: input });
+  const newArray: any = [];
+
+  memoryArray.forEach((element: ArrayProps) => {
+    if (element.type === "ai") {
+      newArray.push(new AIMessage(element.data));
+    } else {
+      newArray.push(new HumanMessage(element.data));
+    }
+  });
+
   const prompt = ChatPromptTemplate.fromMessages([
     [contextName ?? "system", context ?? "You are a helpful assistant"],
-    ["human", "{input}"],
+    new MessagesPlaceholder("messages"),
   ]);
   const chain = prompt.pipe(groqModel);
 
   const response = await chain.invoke({
-    input,
+    messages: [...newArray],
   });
 
-  return NextResponse.json({ response });
+  return NextResponse.json({ response: response.content });
 }
