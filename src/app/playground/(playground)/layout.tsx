@@ -341,10 +341,10 @@ export default function PlaygroundLayout({
 
             <div className="ml-auto flex gap-5 items-center">
               <ThemeButton />
-              <Button variant="outline" size="sm" className="gap-1.5 text-sm">
+              {/* <Button variant="outline" size="sm" className="gap-1.5 text-sm">
                 <Share className="size-3.5" />
                 Share
-              </Button>
+              </Button> */}
             </div>
           </header>
           {children}

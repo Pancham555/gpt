@@ -1,3 +1,21 @@
+import { Footer } from "@/components/component/footer";
+import { Navbar } from "@/components/component/navbar";
+import IconSectionDescriptionOnLeftIconBlocksOnRight from "@/components/Features";
+import HeroSectionSimpleCentred from "@/components/Hero";
+
+export default function Home() {
+  return (
+    <main className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-slate-800 dark:to-slate-950">
+      <Navbar />
+      <HeroSectionSimpleCentred />
+      <IconSectionDescriptionOnLeftIconBlocksOnRight />
+      <Footer />
+    </main>
+  );
+}
+
+/*
+
 import Image from "next/image";
 
 export default function Home() {
@@ -111,3 +129,4 @@ export default function Home() {
     </main>
   );
 }
+*/
