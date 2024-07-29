@@ -30,6 +30,7 @@ import axios from "axios";
 import { GPTContext, GPTCredentialsProps } from "@/context/gpt-context";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useSearchParams } from "next/navigation";
 
 export default function Dashboard() {
   const {
@@ -38,6 +39,7 @@ export default function Dashboard() {
   }: { gptCredentials: GPTCredentialsProps; setGPTCredentials: Function } =
     useContext(GPTContext);
 
+  const searchParams = useSearchParams();
   const [models, setModels] = useState<string[]>();
   const [contextNames, setContextNames] = useState<string[]>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -79,6 +81,7 @@ export default function Dashboard() {
   };
   useEffect(() => {
     getGPTParameters();
+    setGPTCredentials({ ...gptCredentials, input: searchParams.get("prompt") });
   }, []);
 
   return (
@@ -226,6 +229,19 @@ export default function Dashboard() {
                 );
               }
             })}
+            {loading ? (
+              <div className="grid grid-cols-[1fr_20fr] gap-2 w-full max-w-lg">
+                <Skeleton className="h-8 w-8" />
+                <Card className="p-3">
+                  <CardContent className="p-0 space-y-2">
+                    <Skeleton className="h-4 w-[95%]" />
+                    <Skeleton className="h-4 w-[100%]" />
+                    <Skeleton className="h-4 w-[88%]" />
+                    <Skeleton className="h-4 w-[94%]" />
+                  </CardContent>
+                </Card>
+              </div>
+            ) : null}
           </div>
         </div>
         <form

@@ -30,37 +30,39 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import React from "react";
 import ThemeButton from "../theme";
+import { BotMessageSquare } from "lucide-react";
 
 export function Navbar() {
   return (
     <header className="fixed top-0 z-50 w-full bg-gradient-to-r from-green-50 to-blue-50 dark:from-slate-800 dark:to-slate-950">
       {/* shadow-sm bg-background  bg-gradient-to-r from-green-50 to-blue-50*/}
       <div className="container lg:grid h-16 items-center lg:grid-cols-3 flex justify-between px-4 md:px-6">
-        <Link href="#" className="flex items-center gap-2" prefetch={false}>
+        <Link href="/" className="flex items-center gap-2" prefetch={false}>
           <MountainIcon className="h-6 w-6" />
           <span className="text-lg font-semibold">Acme Inc</span>
         </Link>
         <nav className="hidden items-center gap-6 lg:flex justify-center">
-          <Link
+          {/* <Link
             href="#"
             className="text-sm font-medium hover:text-primary transition-colors"
             prefetch={false}
           >
             Home
+          </Link> */}
+
+          <Link
+            href="/playground"
+            className="text-sm font-medium hover:text-primary transition-colors"
+            prefetch={false}
+          >
+            Playground
           </Link>
           <Link
-            href="#"
+            href="/about"
             className="text-sm font-medium hover:text-primary transition-colors"
             prefetch={false}
           >
             About
-          </Link>
-          <Link
-            href="#"
-            className="text-sm font-medium hover:text-primary transition-colors"
-            prefetch={false}
-          >
-            Services
           </Link>
           <NavigationMenu>
             <NavigationMenuList>
@@ -118,7 +120,7 @@ export function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
           <Link
-            href="#"
+            href={`mailto:${process.env.MAIL}`}
             className="text-sm font-medium hover:text-primary transition-colors"
             prefetch={false}
           >
@@ -139,7 +141,7 @@ export function Navbar() {
           <SheetContent side="right" className="w-[300px]">
             <div className="flex h-16 items-center justify-between px-4">
               <Link
-                href="#"
+                href="/"
                 className="flex items-center gap-2"
                 prefetch={false}
               >
@@ -154,29 +156,21 @@ export function Navbar() {
               </SheetClose> */}
             </div>
             <nav className="grid gap-4 px-4 py-6">
-              <Link
+              {/* <Link
                 href="#"
                 className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
                 prefetch={false}
               >
                 <HomeIcon className="h-5 w-5" />
                 Home
-              </Link>
+              </Link> */}
               <Link
-                href="#"
+                href="/playground"
                 className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
                 prefetch={false}
               >
-                <InfoIcon className="h-5 w-5" />
-                About
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
-                prefetch={false}
-              >
-                <ServerIcon className="h-5 w-5" />
-                Services
+                <BotMessageSquare className="h-5 w-5" />
+                Playground
               </Link>
               <div className="grid gap-4">
                 <div className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors">
@@ -208,7 +202,15 @@ export function Navbar() {
                 </div>
               </div>
               <Link
-                href="#"
+                href="/about"
+                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
+                prefetch={false}
+              >
+                <InfoIcon className="h-5 w-5" />
+                About
+              </Link>
+              <Link
+                href={`mailto:${process.env.MAIL}`}
                 className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
                 prefetch={false}
               >

@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   BriefcaseIcon,
@@ -11,8 +12,13 @@ import {
 } from "lucide-react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Image from "next/image";
 
 export default function HeroSectionSimpleCentred() {
+  const router = useRouter();
+  const [prompt, setPrompt] = useState("");
   return (
     <>
       {/* Hero */}
@@ -47,69 +53,42 @@ export default function HeroSectionSimpleCentred() {
           {/* Title */}
           <div className="mt-5 max-w-2xl text-center mx-auto">
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-              Let&apos;s Build Together
+              Let&apos;s Prompt Together
             </h1>
           </div>
           {/* End Title */}
           <div className="mt-5 max-w-3xl text-center mx-auto">
             <p className="text-xl text-muted-foreground">
-              Over 10+ fully responsive, UI blocks you can drop into your Shadcn
-              UI projects and customize to your heart&apos;s content.
+              Made with Groq AI with varius customizations and models that will
+              help you get the right one for yourself
             </p>
           </div>
-          {/* Buttons */}
-          {/* <div className="mt-8 gap-3 flex justify-center">
-            <Button size={"lg"}>Get started</Button>
-            <Button size={"lg"} variant={"outline"}>
-              Learn more
-            </Button>
-          </div> */}
-          {/* End Buttons */}
-          {/* <div className="mt-5 flex justify-center items-center gap-x-1 sm:gap-x-3">
-            <span className="text-sm text-muted-foreground">
-              Package Manager:
-            </span>
-            <span className="text-sm font-bold">npm </span>
-            <svg
-              className="h-5 w-5 text-muted-foreground"
-              width={16}
-              height={16}
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                d="M6 13L10 3"
-                stroke="currentColor"
-                strokeLinecap="round"
-              />
-            </svg>
-            <a
-              className="inline-flex items-center gap-x-1 text-sm decoration-2 hover:underline font-medium"
-              href="#"
-            >
-              Installation Guide
-              <ChevronRightIcon className="flex-shrink-0 w-4 h-4" />
-            </a>
-          </div> */}
+
           <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">
             {/* Form */}
             <form>
               <div className="relative z-10 flex space-x-3 p-3 border bg-background rounded-lg shadow-lg">
                 <div className="flex-[1_0_0%]">
-                  <Label htmlFor="article" className="sr-only">
-                    Search article
+                  <Label htmlFor="message" className="sr-only">
+                    Write a prompt
                   </Label>
                   <Input
-                    name="article"
+                    name="message"
                     className="h-full"
-                    id="article"
-                    placeholder="Search article"
+                    id="message"
+                    placeholder="Write a prompt"
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
                   />
                 </div>
                 <div className="flex-[0_0_auto]">
-                  <Button size={"icon"} type="button">
+                  <Button
+                    size={"icon"}
+                    type="button"
+                    onClick={() => {
+                      router.push(`/playground?prompt=${prompt}`);
+                    }}
+                  >
                     <SearchIcon />
                   </Button>
                 </div>
@@ -168,34 +147,70 @@ export default function HeroSectionSimpleCentred() {
             {/* End SVG Element */}
           </div>
           <div className="mt-10 sm:mt-20 flex flex-wrap gap-2 justify-center">
-            <Button variant={"outline"}>
+            <Button
+              variant={"outline"}
+              onClick={() => setPrompt("How can I create a SaaS business?")}
+            >
               <BriefcaseIcon className="flex-shrink-0 w-3 h-auto mr-2" />
               Business
             </Button>
-            <Button variant={"outline"}>
+            <Button
+              variant={"outline"}
+              onClick={() =>
+                setPrompt(
+                  "Write me a perfect strategy to score perfect in my upcoming exams."
+                )
+              }
+            >
               <SettingsIcon className="flex-shrink-0 w-3 h-auto mr-2" />
               Strategy
             </Button>
-            <Button variant={"outline"}>
+            <Button
+              variant={"outline"}
+              onClick={() =>
+                setPrompt("Suggest me fitness tips that I can do at my home.")
+              }
+            >
               <HeartIcon className="flex-shrink-0 w-3 h-auto mr-2" />
               Health
             </Button>
-            <Button variant={"outline"}>
+            <Button
+              variant={"outline"}
+              onClick={() =>
+                setPrompt(
+                  "Suggest me some creative crafts to make my room look good!"
+                )
+              }
+            >
               <LightbulbIcon className="flex-shrink-0 w-3 h-auto mr-2" />
               Creative
             </Button>
-            <Button variant={"outline"}>
+            <Button
+              variant={"outline"}
+              onClick={() =>
+                setPrompt("Suggest me some gardening tips to do at my home.")
+              }
+            >
               <FlowerIcon className="flex-shrink-0 w-3 h-auto mr-2" />
               Environment
             </Button>
-            <Button variant={"outline"}>
+            <Button
+              variant={"outline"}
+              onClick={() =>
+                setPrompt("What is the best place to for adventuring?")
+              }
+            >
               <MountainSnow className="flex-shrink-0 w-3 h-auto mr-2" />
               Adventure
             </Button>
           </div>
           <div className="mt-10 relative max-w-5xl mx-auto">
-            <img
-              src="https://placehold.co/1024x480"
+            <Image
+              // https://placehold.co/1024x480
+              src="/hero.jpeg"
+              width={5000}
+              height={5000}
+              quality={100}
               className="rounded-xl"
               alt="Image Description"
             />
