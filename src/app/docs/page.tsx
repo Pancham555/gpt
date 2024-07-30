@@ -165,7 +165,7 @@ export default function Documentation() {
                 <div className="grid gap-1">
                   <h3 className="text-lg font-bold">2. Customize</h3>
                   <p className="text-sm text-muted-foreground">
-                    Customize the chatbot's appearance, tone, and behavior to
+                    Customize the chatbot&apos;s appearance, tone, and behavior to
                     match your brand and user preferences.
                   </p>
                 </div>
@@ -296,7 +296,7 @@ export default function Documentation() {
                         We take security very seriously. Our chatbot is built
                         with robust security measures, including end-to-end
                         encryption, data protection, and compliance with
-                        industry standards. Your users' data is safe with us.
+                        industry standards. Your users&apos; data is safe with us.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
