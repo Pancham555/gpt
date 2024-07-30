@@ -328,7 +328,7 @@ export default function Documentation() {
                         including documentation, tutorials, and a dedicated
                         support team. If you have any questions or need
                         assistance, you can reach out to us via email, chat, or
-                        our support portal, and we'll be happy to help.
+                        our support portal, and we&apos;ll be happy to help.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
