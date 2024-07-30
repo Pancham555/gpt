@@ -186,7 +186,7 @@ export default function Documentation() {
                 <div className="grid gap-1">
                   <h3 className="text-lg font-bold">5. Optimize</h3>
                   <p className="text-sm text-muted-foreground">
-                    Continuously optimize the chatbot\'s responses and
+                    Continuously optimize the chatbot&apos;s responses and
                     functionality based on user feedback and analytics.
                   </p>
                 </div>
