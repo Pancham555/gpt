@@ -342,7 +342,7 @@ export default function Documentation() {
   );
 }
 
-function FrameIcon(props) {
+function FrameIcon(props: React.SVGAttributes<SVGElement>) {
   return (
     <svg
       {...props}
@@ -364,7 +364,7 @@ function FrameIcon(props) {
   );
 }
 
-function XIcon(props) {
+function XIcon(props: React.SVGAttributes<SVGElement>) {
   return (
     <svg
       {...props}
