@@ -104,7 +104,7 @@ export function About() {
                 </p>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Whether you need to connect Acme Chatbot to your CRM,
-                  e-commerce platform, or any other business system, we've got
+                  e-commerce platform, or any other business system, we&apos;ve got
                   you covered. Our API-first approach ensures that the
                   integration process is smooth and efficient, allowing you to
                   start reaping the benefits of Acme Chatbot in no time.
