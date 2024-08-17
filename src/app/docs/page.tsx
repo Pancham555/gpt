@@ -10,6 +10,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import { SVGProps } from "react";
 
 export default function Documentation() {
   return (
@@ -342,7 +343,7 @@ export default function Documentation() {
   );
 }
 
-function FrameIcon(props) {
+function FrameIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -364,7 +365,7 @@ function FrameIcon(props) {
   );
 }
 
-function XIcon(props) {
+function XIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
