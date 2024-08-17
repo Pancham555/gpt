@@ -31,6 +31,7 @@ import { GPTContext, GPTCredentialsProps } from "@/context/gpt-context";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSearchParams } from "next/navigation";
+import Markdown from "react-markdown";
 
 export default function Dashboard() {
   const {
@@ -145,7 +146,7 @@ export default function Dashboard() {
               </div>
               <Slider
                 id="max-tokens"
-                max={256}
+                max={512}
                 step={1}
                 value={[gptCredentials.maxTokens]}
                 onValueChange={(e) =>
@@ -212,7 +213,9 @@ export default function Dashboard() {
                   >
                     <BotMessageSquare />
                     <Card className="p-3">
-                      <CardContent className="p-0">{data.data}</CardContent>
+                      <CardContent className="p-0">
+                        <Markdown>{data.data}</Markdown>
+                      </CardContent>
                     </Card>
                   </div>
                 );
