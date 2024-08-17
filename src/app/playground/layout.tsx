@@ -1,7 +1,8 @@
 "use client";
 import { GPTContextProvider } from "@/context/gpt-context";
 import { GPTOutPutContextProvider } from "@/context/gpt-output-context";
-
+import { Suspense } from 'react'
+ 
 export default function PlaygroundLayout({
   children,
 }: Readonly<{
@@ -9,7 +10,11 @@ export default function PlaygroundLayout({
 }>) {
   return (
     <GPTContextProvider>
-      <GPTOutPutContextProvider>{children}</GPTOutPutContextProvider>
+      <GPTOutPutContextProvider>
+        <Suspense>
+          {children}
+        </Suspense>
+      </GPTOutPutContextProvider>
     </GPTContextProvider>
   );
 }
